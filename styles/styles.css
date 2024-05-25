@@ -1,0 +1,262 @@
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Segoe UI";
+    background-color: #E4E4E4;
+}
+
+.hero {
+    background: #E4E4E4;
+    padding: 4rem 0;
+    display: flex;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.hero .intro-excerpt {
+    position: relative;
+    z-index: 4;
+    top: -5vh;
+}
+
+.hero h1 {
+    font-weight: 700;
+    color: #000000;
+    /* Changed to black for better contrast against light background */
+    margin-bottom: 30px;
+}
+
+.hero p {
+    color: rgba(0, 0, 0, 0.7);
+    /* Changed to dark for better contrast */
+    margin-bottom: 30px;
+}
+
+.hero .hero-img-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -5vh;
+}
+
+.hero .hero-img-wrap img {
+    max-width: 100%;
+    /*height: auto;*/
+    height: 80vh;
+    object-fit: cover;
+    display: block;
+}
+
+.large-heading {
+    font-size: 5rem;
+    font-weight: 400;
+    font-family: 'Fjalla One', sans-serif;
+    color: #a5201f;
+}
+
+.large-span {
+    font-size: 4rem;
+    /* Adjust the size as needed */
+    font-weight: 400;
+    font-family: 'Fjalla One', sans-serif;
+    color: #C11A19;
+    display: block;
+}
+
+.custom-btn {
+    background: #C11A19;
+    border-radius: 0;
+    border: 0;
+    display: inline-flex;
+    padding: 5px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.5s ease;
+    min-width: 200px;
+}
+
+.custom-btn:hover {
+    background: #323232;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.bg-main {
+    background-color: #323232;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    top: -14vh;
+}
+
+.column-content {
+    color: white;
+    padding: 20px;
+    border-right: 1px solid #fff;
+    height: 100%;
+    font-size: 14px;
+    text-align: center;
+}
+
+.col:last-child .column-content {
+    border-right: none;
+}
+
+.column-content h2 {
+    margin-top: 0;
+    font-size: 22px;
+}
+
+.img-wrap img {
+    max-width: 100%;
+    /*height: auto;*/
+    height: 70vh;
+    margin: auto;
+    justify-content: end;
+    display: flex;
+}
+
+.feature {
+    max-width: 1200px;
+    /* Set your desired max width */
+    margin: 0 auto;
+    /* Center the feature section */
+}
+
+.left {
+    text-align: left;
+    max-width: 600px;
+}
+
+.right {
+    text-align: right;
+    max-width: 600px;
+}
+
+
+/*footer section*/
+.footer {
+    background-color: #323232;
+    padding: 30px 0;
+    color: #E4E4E4;
+}
+
+.footer-left {
+    text-align: left;
+}
+
+.footer-right {
+    text-align: right;
+    color: #E4E4E4;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: normal;
+}
+
+.footer-right p {
+    margin-bottom: 5px;
+}
+
+/*End footer section*/
+
+.red {
+    color: #C11A19;
+    font-weight: 700;
+}
+
+.login-img-wrap {
+    position: fixed;
+    /* Fixes the position relative to the viewport */
+    top: 0;
+    right: 0;
+    /* Aligns the image container to the right */
+    height: 100vh;
+    /* Full viewport height */
+    width: auto;
+    /* Adjust width to maintain aspect ratio */
+    display: flex;
+    align-items: center;
+    /* Center the image vertically */
+    z-index: -1;
+}
+
+.login-img-wrap img {
+    height: 100%;
+    /* Fit the image to the full height of the container */
+    max-height: 100vh;
+    /* Ensure the image does not exceed the viewport height */
+    width: auto;
+    /* Maintain the aspect ratio */
+    object-fit: cover;
+    /* Cover the container while maintaining aspect ratio */
+    position: relative;
+    /* Ensure positioning respects the parent container */
+}
+
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #E4E4E4;
+}
+
+.login-card {
+    border-radius: 10px;
+    background: linear-gradient(135deg, #717171, #323232);
+    /* Gradient background */
+    padding: 30px 40px;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 33%;
+    min-width: 300px;
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: transparent;
+}
+
+input[type="text"],
+input[type="password"] {
+    background-color: transparent;
+    color: #E4E4E4;
+    width: 100%;
+    padding: 10px 5px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    font-size: 16px;
+}
+
+
+
+input::placeholder {
+    color: #E4E4E4;
+}
+
+.login_space {
+    margin-top: 50px;
+}
