@@ -16,72 +16,71 @@ body {
     margin: 0px;
     padding: 0px;
     font-family: "Segoe UI";
-    background-color: #E4E4E4; }
+    background-color: #E4E4E4;
+}
 
-
-
-/*footer section*/
+/* footer section */
 .footer {
     background-color: #323232;
     padding: 30px 0;
     color: #E4E4E4;
-  }
-  
+}
+
 .footer-left {
-text-align: left;
+    text-align: left;
 }
 
 .footer-right {
-text-align: right;
-color: #E4E4E4;
-font-family: "Segoe UI", sans-serif;
-font-size: 16px;
-line-height: normal;
+    text-align: right;
+    color: #E4E4E4;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: normal;
 }
 
 .footer-right p {
-margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
-/*End footer section*/
+/* End footer section */
 
-
-/*profile*/
-
-.card{
-	background-color: #fff;
-	border-radius: 6px;	
-	padding: 2rem !important;
+/* profile */
+.card {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 2rem !important;
     margin-bottom: 15px;
 }
-.top-container{
-	display: flex;
-	align-items: center;
+
+.top-container {
+    display: flex;
+    align-items: center;
 }
-.profile-image{
-	border-radius: 10px;
-	border: 2px solid #5957f9;
+
+.profile-image {
+    border-radius: 10px;
+    border: 2px solid #5957f9;
     margin: 0px 20px 20px 0px;
 }
-.name{
-	font-size: 15px;
-	font-weight: bold;
-	color: #272727;
-	position: relative;
-	top: 5px;
-}
-.mail{
-	font-size: 14px;
-	color: grey;
-	position: relative;
-	top: 1px;
+
+.name {
+    font-size: 15px;
+    font-weight: bold;
+    color: #272727;
+    position: relative;
+    top: 5px;
 }
 
-/*End profile*/
+.mail {
+    font-size: 14px;
+    color: grey;
+    position: relative;
+    top: 1px;
+}
 
+/* End profile */
 
-/* button*/
-
+/* button */
 .custom-btn {
     background: #C11A19;
     border-radius: 0;
@@ -106,7 +105,7 @@ margin-bottom: 5px;
     text-align: center;
 }
 
-.nav_btn{
+.nav_btn {
     background: transparent;
     border-radius: 0;
     border: 1px solid #323232;
@@ -132,13 +131,10 @@ margin-bottom: 5px;
     background: #323232;
     color: #E4E4E4;
 }
-/* End button*/
 
-
-/*dashboard page*/
-
-.topic_dashboard{
-    font-size: 24px; /* Example font size */
+/* dashboard page */
+.topic_dashboard {
+    font-size: 24px;
 }
 
 .logout-btn {
@@ -167,15 +163,10 @@ margin-bottom: 5px;
     margin-top: 20px;
 }
 
-.test{
+.test {
     color: red;
 }
+/* End dashboard page */
 
-/*dashboard page*/
-
-
-
-/* Edit profile*/
-
-
-/* End Edit profile*/
+/* Edit profile */
+/* End Edit profile */
