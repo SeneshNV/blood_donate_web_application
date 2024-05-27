@@ -8,8 +8,7 @@
     </div>
 
     <div>
-        <button id="dashboardBtn" type="button" class="nav_btn btn-100 active" onclick="loadPage('dashboard')">Dashboard</button>
-
+        
         <div class="nav_title">
             <h6>Blood Donate</h6>
         </div>
@@ -43,8 +42,8 @@
                 setActiveButton('confirmbloodBtn');
                 break;
             default:
-                filePath = 'dashboard.php'; // Default to dashboard
-                setActiveButton('dashboardBtn');
+                filePath = 'matching_blood.php'; // Default to dashboard
+                setActiveButton('matchingblooddBtn');
                 break;
         }
         window.location.href = filePath;

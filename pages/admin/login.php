@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stored_password === $hashed_password) {
                 // Store user ID in session and redirect to dashboard
                 $_SESSION['user_id'] = $user_id;
-                header("Location: dashboard.php");
+                header("Location: matching_blood.php");
                 exit();
             } else {
                 $message = "Incorrect password.";
