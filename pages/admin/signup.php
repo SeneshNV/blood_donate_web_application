@@ -1,5 +1,5 @@
 <?php
-include('components/connection.php');
+include('admin_components/connection.php');
 
 $message = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Passwords do not match.";
     } else {
         // Check if username already exists
-        $stmt = $conn->prepare("SELECT username FROM user WHERE username = ?");
+        $stmt = $conn->prepare("SELECT username FROM admin WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $stmt->store_result();
@@ -27,21 +27,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $hashed_password = hash('sha256', $password);
 
             // Insert new user
-            $stmt = $conn->prepare("INSERT INTO user (username, password) VALUES (?, ?)");
+            $stmt = $conn->prepare("INSERT INTO admin (username, password) VALUES (?, ?)");
             $stmt->bind_param("ss", $username, $hashed_password);
 
             if ($stmt->execute()) {
                 $user_id = $stmt->insert_id; // Get the newly inserted user ID
-
-                // Insert into donation_status table
-                $stmt = $conn->prepare("INSERT INTO donation_status (donor_id, status) VALUES (?, 'none')");
-                $stmt->bind_param("i", $user_id);
-                $stmt->execute();
-
-                $stmt = $conn->prepare("INSERT INTO user_info (user_id) VALUES (?)");
-                $stmt->bind_param("i", $user_id);
-                $stmt->execute();
-
+                
                 $message = "Registration successful.";
             } else {
                 $message = "Error: " . $stmt->error;
@@ -66,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Sign Up Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
-    <link href="../styles/styles.css" rel="stylesheet">
+    <link href="styles/styles.css" rel="stylesheet">
 </head>
 
 <body>
@@ -75,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="container">
                 <!-- Left-aligned logo and brand name -->
                 <a class="navbar-brand d-flex align-items-center" href="../index.html">
-                    <img src="../img/nawaloka_logo.png" alt="Nawaloka Logo" style="height: 40px; margin-right: 10px;"> <!-- Add your logo path here -->
+                    <img src="../../img/nawaloka_logo.png" alt="Nawaloka Logo" style="height: 40px; margin-right: 10px;"> <!-- Add your logo path here -->
                     Nawaloka Hospitals PLC
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="col-lg-7">
         <div class="login-img-wrap">
-            <img src="../img/hand1.png" class="img-fluid" alt="Cover Image">
+            <img src="../../img/hand1.png" class="img-fluid" alt="Cover Image">
         </div>
     </div>
 

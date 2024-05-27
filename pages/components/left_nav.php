@@ -1,10 +1,9 @@
 <!-- profile section -->
 <div class="card">
-    <div class="top-container">
-        <img src="../img/2.jpg" class="img-fluid profile-image" width="70">
+    <div class="top-container">        
         <div class="ml-3">
-            <h5 class="name"><?php echo isset($username) ? $username : ''; ?></h5>
-            <p class="mail">seneshnv@zmail.com</p>
+            <p style="margin-bottom: -5px;">Welcome,</p>
+            <h5><b><?php echo isset($username) ? $username : ''; ?></b></h5>
         </div>
     </div>
 
@@ -23,22 +22,32 @@
         </tr>
     </table>
     <br>
-    <div class="button-container login_space">
-        <button type="button" class="custom-btn" onclick="loadPage('editprofile')">Update Profile</button>
+    <div class="login_space">
+        <button id="editProfileBtn" type="button" class="custom-btn btn-100" onclick="loadPage('editprofile')">Update Profile</button>
     </div>
-    <br>
-    <div class="button-container">
-        <button id="dashboardBtn" type="button" class="nav_btn active" onclick="loadPage('dashboard')">Dashboard</button>
-        <button id="donatingBloodBtn" type="button" class="nav_btn" onclick="loadPage('donatingblood')">Donating Blood</button>
-        <button id="needBloodBtn" type="button" class="nav_btn" onclick="loadPage('needblood')">Need Blood</button>
-        <button id="requestBloodBtn" type="button" class="nav_btn" onclick="loadPage('requestblood')">Blood Request</button>
-        <button id="viewBloodRequestBtn" type="button" class="nav_btn" onclick="loadPage('viewBloodRequest')">View Blood Requests</button>
-        <button id="totalDonationsBtn" type="button" class="nav_btn" onclick="loadPage('totalDonations')">Total Donations</button>
-        <button id="feedbackAndReviewsBtn" type="button" class="nav_btn" onclick="loadPage('feedbackAndReviews')">Feedback and Reviews</button>
-        <button id="aboutUsBtn" type="button" class="nav_btn" onclick="loadPage('aboutUs')">About Us</button>
+    <div>
+        <button id="dashboardBtn" type="button" class="nav_btn btn-100 active" onclick="loadPage('dashboard')">Dashboard</button>
+        
+        <div class="nav_title">
+            <h6>Blood Donate</h6>
+        </div>
+        <button id="donatingBloodBtn" type="button" class="nav_btn btn-100" onclick="loadPage('donatingblood')">Donating Blood</button>
+        <button id="requestBloodBtn" type="button" class="nav_btn btn-100" onclick="loadPage('requestblood')">Blood Needed from Me</button>
+        
+        <div class="nav_title">
+            <h6>Blood Receive</h6>
+        </div>
+        <button id="needBloodBtn" type="button" class="nav_btn btn-100" onclick="loadPage('needblood')">Need Blood</button>
+        <button id="viewBloodRequestBtn" type="button" class="nav_btn btn-100" onclick="loadPage('viewBloodRequest')">Blood Requests to Me</button>
+        
+        <div class="nav_title">
+            <h6>Other</h6>
+        </div>
+        <button id="feedbackAndReviewsBtn" type="button" class="nav_btn btn-100" onclick="loadPage('feedbackAndReviews')">Feedback and Reviews</button>
+        <button id="aboutUsBtn" type="button" class="nav_btn btn-100" onclick="loadPage('aboutUs')">About Us</button>
         <br><br>
         <form method="post" action="logout.php" style="display:inline;">
-            <button type="submit" class="custom-btn">Logout</button>
+            <button type="submit" class="custom-btn btn-100">Logout</button>
         </form>
     </div>
 </div>
@@ -63,7 +72,7 @@
                 setActiveButton('needBloodBtn');
                 break;
             case 'requestblood':
-                filePath = 'request.php';
+                filePath = 'blood_needed_from_me.php';
                 setActiveButton('requestBloodBtn');
                 break;
             case 'viewBloodRequest':

@@ -44,7 +44,7 @@ if (isset($_POST['status'])) {
 
     // Check if blood type is null or empty
     if (empty($user['blood_type'])) {
-        $message = "Cannot update status when blood type is null or empty.";
+        $message = "Cannot update status... Please update profile.";
     } else {
         $stmt = $conn->prepare("UPDATE donation_status SET status = ? WHERE donor_id = ?");
         $stmt->bind_param("si", $new_status, $user_id);
@@ -52,11 +52,11 @@ if (isset($_POST['status'])) {
 
         // Check if any rows were affected by the update
         $affected_rows = $stmt->affected_rows;
-        
+
         $stmt->close();  // Close the statement after retrieving affected rows
-        
+
         $message = "Status updated successfully.";
-        
+
         // Retrieve current status
         $stmt = $conn->prepare("SELECT status FROM donation_status WHERE donor_id = ?");
         $stmt->bind_param("i", $user_id);
@@ -79,6 +79,7 @@ if (isset($_SESSION['message'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -92,6 +93,7 @@ if (isset($_SESSION['message'])) {
         }
     </style>
 </head>
+
 <body>
     <div class="container-fluid">
         <?php include('components/donor_header.php'); ?>
@@ -102,8 +104,8 @@ if (isset($_SESSION['message'])) {
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <button class="btn btn-primary d-md-none custom-btn" type="button" data-bs-toggle="collapse" data-bs-target="#leftNav" aria-expanded="false" aria-controls="leftNav">
-                    ☰ Profile
+                <button class="d-md-none custom-btn mx-auto btn-100" type="button" data-bs-toggle="collapse" data-bs-target="#leftNav" aria-expanded="false" aria-controls="leftNav">
+                    ☰ Menu
                 </button>
                 <div class="collapse d-md-block" id="leftNav">
                     <?php include('components/left_nav.php'); ?>
@@ -148,8 +150,9 @@ if (isset($_SESSION['message'])) {
                     <div class="card">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <h6 class="mb-3" style="margin: 0;">Donation Status</h6>
-                            <button type="button" class="custom-btn" onclick="loadPage('editprofile')">Update Profile</button>
+                            <a href="edit_profile.php" class="custom-btn">Update Profile</a>
                         </div>
+
 
                         <div class="card-body">
                             <form method="post">
@@ -208,4 +211,5 @@ if (isset($_SESSION['message'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
 </body>
+
 </html>

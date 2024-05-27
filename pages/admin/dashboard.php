@@ -3,12 +3,12 @@
 session_start();
 
 // Include the database connection file
-include('components/connection.php');
+include('admin_components/connection.php');
 
 // Fetch the username based on the user_id stored in the session
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-    $stmt = $conn->prepare("SELECT username FROM user WHERE id = ?");
+    $stmt = $conn->prepare("SELECT username FROM admin WHERE id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $stmt->bind_result($username);
@@ -30,7 +30,7 @@ if (isset($_SESSION['user_id'])) {
     <title>Blood Donor's Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
-    <link href="../styles/users_styles.css" rel="stylesheet">
+    <link href="styles/users_styles.css" rel="stylesheet">
     <style>
         .col-md-3 {
             min-width: 280px;
@@ -40,7 +40,7 @@ if (isset($_SESSION['user_id'])) {
 
 <body>
     <div class="container-fluid">
-        <?php include('components/donor_header.php'); ?>
+        <?php include('admin_components/donor_header.php'); ?>
     </div>
 
     <div class="login_space"></div>
@@ -52,7 +52,7 @@ if (isset($_SESSION['user_id'])) {
                     ☰ Menu
                 </button>
                 <div class="collapse d-md-block" id="leftNav">
-                    <?php include('components/left_nav.php'); ?>
+                    <?php include('admin_components/left_nav.php'); ?>
                 </div>
             </div>
 
@@ -72,17 +72,17 @@ if (isset($_SESSION['user_id'])) {
                 <div id="newsCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="d-block w-100" src="../img/4.jpg" alt="First slide"><br>
+                            <img class="d-block w-100" src="../img/banner.jpeg" alt="First slide"><br>
                             <h5>Give blood and keep the world beating | 2024 | Colombo 04</h5>
                             <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p>
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="../img/22.jpg" alt="Second slide"><br>
+                            <img class="d-block w-100" src="../img/banner.jpeg" alt="Second slide"><br>
                             <h5>Give blood and keep the world beating | 2024 | Colombo 04</h5>
                             <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p>
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="../img/3.jpg" alt="Third slide"><br>
+                            <img class="d-block w-100" src="../img/banner.jpeg" alt="Third slide"><br>
                             <h5>Give blood and keep the world beating | 2024 | Colombo 04</h5>
                             <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type</p>
                         </div>
@@ -102,7 +102,7 @@ if (isset($_SESSION['user_id'])) {
     </div>
 
     <footer class="footer" style="margin-top: 40px;">
-        <?php include('components/footer.php'); ?>
+        <?php include('admin_components/footer.php'); ?>
     </footer>
 
     <!-- Modal Structure -->

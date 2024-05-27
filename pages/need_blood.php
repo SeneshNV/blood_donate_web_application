@@ -4,6 +4,7 @@ session_start();
 
 // Include the database connection file
 include('components/connection.php');
+include('need_blood_request.php'); // Include the validation and form submission logic
 
 // Fetch the username based on the user_id stored in the session
 if (isset($_SESSION['user_id'])) {
@@ -19,7 +20,15 @@ if (isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+
+// Retrieve and clear the message from the session
+$message = '';
+if (isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    unset($_SESSION['message']);
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,9 +57,10 @@ if (isset($_SESSION['user_id'])) {
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <button class="btn btn-primary d-md-none custom-btn" type="button" data-bs-toggle="collapse" data-bs-target="#leftNav" aria-expanded="false" aria-controls="leftNav">
-                    ☰ Profile
+                <button class="d-md-none custom-btn mx-auto btn-100" type="button" data-bs-toggle="collapse" data-bs-target="#leftNav" aria-expanded="false" aria-controls="leftNav">
+                    ☰ Menu
                 </button>
+
                 <div class="collapse d-md-block" id="leftNav">
                     <?php include('components/left_nav.php'); ?>
                 </div>
@@ -59,13 +69,14 @@ if (isset($_SESSION['user_id'])) {
 
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Blood Donor</a></li>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Need Blood</li>
                     </ol>
                 </nav>
 
-                <div class="topic_dashboard">
-                    <p>Request <b>Blood</b></p>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <p class="topic_dashboard">Request <b>Blood</b></p>
+                    <button type="button" class="custom-btn" onclick="openPopupForm('Any')">Quick Request Blood</button>
                 </div>
 
                 <div class="container">
@@ -82,22 +93,22 @@ if (isset($_SESSION['user_id'])) {
                                 <option value="O+">O+</option>
                                 <option value="O-">O-</option>
                             </select>
-                            <button class="btn btn-primary" type="submit" id="searchButton">Search</button>
+                            <button class="custom-btn" type="submit" id="searchButton">Search</button>
                         </div>
                     </form>
 
-                    <div id="searchResults">
+                    <div id="searchResults" class="table-responsive">
                         <?php
                         // Initialize SQL query
-                        $sql = "SELECT u.username, ui.blood_type, ui.age, ds.status 
-                        FROM user u
-                        JOIN user_info ui ON u.id = ui.user_id
-                        JOIN donation_status ds ON u.id = ds.donor_id
-                        WHERE ds.status = 'like_to_donate'
-                        AND u.id != ?";
+                        $sql = "SELECT u.id as row_id, u.username, ui.blood_type, ui.age, ds.status 
+                            FROM user u
+                            JOIN user_info ui ON u.id = ui.user_id
+                            JOIN donation_status ds ON u.id = ds.donor_id
+                            WHERE ds.status = 'like_to_donate'
+                            AND u.id != ?";
 
                         // Check if blood_type parameter is set (search query)
-                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['blood_type'])) {
                             $search_blood_type = $_POST['blood_type'];
                             if (!empty($search_blood_type)) {
                                 // Add blood type condition to SQL query
@@ -118,18 +129,20 @@ if (isset($_SESSION['user_id'])) {
                         // Prepare HTML for search results
                         $search_results_html = '';
                         if ($result->num_rows > 0) {
-                            $search_results_html .= "<table class='table'>";
-                            $search_results_html .= "<thead><tr><th>Username</th><th>Blood Type</th><th>Age</th><th>Request</th></tr></thead>";
+                            $search_results_html .= "<table class='table' style='text-align: center;'>";
+                            $search_results_html .= "<thead><tr><th>ID</th><th>Username</th><th>Blood Type</th><th>Age</th><th>Request</th></thead>";
                             $search_results_html .= "<tbody>";
+
                             while ($row = $result->fetch_assoc()) {
                                 $search_results_html .= "<tr>";
+                                $search_results_html .= "<td>" . $row['row_id'] . "</td>";
                                 $search_results_html .= "<td>" . $row['username'] . "</td>";
                                 $search_results_html .= "<td>" . $row['blood_type'] . "</td>";
                                 $search_results_html .= "<td>" . $row['age'] . "</td>";
-                                // Add request button
-                                $search_results_html .= "<td><button class='btn btn-primary'>Request</button></td>";
+                                $search_results_html .= "<td><button class='nav_btn' onclick='openPopupForm(" . $row['row_id'] . ")'>Request</button></td>";
                                 $search_results_html .= "</tr>";
                             }
+
                             $search_results_html .= "</tbody>";
                             $search_results_html .= "</table>";
                         } else {
@@ -137,28 +150,11 @@ if (isset($_SESSION['user_id'])) {
                         }
 
                         $stmt->close();
-                        $conn->close();
 
                         // Return search results HTML
                         echo $search_results_html;
                         ?>
                     </div>
-                </div>
-
-                <!-- Modal for blood request form -->
-                <div id="requestModal" style="display:none;">
-                    <form id="requestForm">
-                        <label for="recipientName">Recipient Name:</label>
-                        <input type="text" id="recipientName" name="recipient_name" required>
-                        <label for="recipientAge">Recipient Age:</label>
-                        <input type="number" id="recipientAge" name="recipient_age" required>
-                        <label for="recipientTelNo">Recipient Tel No:</label>
-                        <input type="tel" id="recipientTelNo" name="recipient_tel_no" required>
-                        <label for="reason">Reason for Request:</label>
-                        <textarea id="reason" name="reason_for_request" required></textarea>
-                        <input type="hidden" id="donorId" name="donor_id">
-                        <button type="submit" class="btn btn-primary">Submit Request</button>
-                    </form>
                 </div>
 
             </div>
@@ -172,6 +168,52 @@ if (isset($_SESSION['user_id'])) {
     <div>
         <?php include('components/message_box.php'); ?>
     </div>
+
+    <!-- Popup Form (Hidden Initially) -->
+    <div class="modal fade" id="requestModal" tabindex="-1" aria-labelledby="requestModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="requestModalLabel">Blood Request Form<span id="modalRowId"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="requestForm" method="post" action="">
+                        <div class="input-group mb-3">
+                            <label for="donor_id" class="form-label">Donor ID: </label>
+                            <input type="text" id="donor_id" name="donor_id" required class="form-input" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <label for="recipient_name" class="form-label">Recipient Name:</label>
+                            <input type="text" id="recipient_name" name="recipient_name" required class="form-input">
+                        </div>
+                        <div class="input-group mb-3">
+                            <label for="recipient_age" class="form-label">Recipient Age:</label>
+                            <input type="number" id="recipient_age" name="recipient_age" required class="form-input">
+                        </div>
+                        <div class="input-group mb-3">
+                            <label for="recipient_tel_no" class="form-label">Recipient Telephone Number:</label>
+                            <input type="text" id="recipient_tel_no" name="recipient_tel_no" required class="form-input">
+                        </div>
+                        <div class="input-group mb-3">
+                            <label for="reason_for_request" class="form-label">Reason for Request:</label>
+                            <textarea id="reason_for_request" name="reason_for_request" required class="form-input"></textarea>
+                        </div>
+                        <button type="submit" class="custom-btn">Submit Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openPopupForm(rowId) {
+            document.getElementById('donor_id').value = rowId;
+            var requestModal = new bootstrap.Modal(document.getElementById('requestModal'));
+            requestModal.show();
+        }
+    </script>
+
 
     <script>
         // Set the active button on page load
